@@ -65,5 +65,36 @@ int main()
     Input1(p_n1, p_m1, arr1);
     Menu(p_n1, p_m1, p_n2, p_m2, arr1, arr2);
 
+
+    if (*p_n1 > *p_m1)
+    {
+        for (int i = 0; i < *p_n1; i++)
+        {
+            free(arr1[i]);
+        }
+    }
+    else
+    {
+        for (int i = 0; i < *p_m1; i++)
+        {
+            free(arr1[i]);
+        }
+    }
+
+    if (*p_n2 > *p_m2)
+    {
+        for (int i = 0; i < *p_n2; i++)
+        {
+            free(arr2[i]);
+        }
+    }
+    else
+    {
+        for (int i = 0; i < *p_m2; i++)
+        {
+            free(arr2[i]);
+        }
+    }
+
     return 0;
 }

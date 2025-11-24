@@ -91,7 +91,7 @@ void Menu(int *p_n1, int *p_m1, int *p_n2, int *p_m2, int *arr1[N], int *arr2[N]
             Matrix_multiplicate(p_n2, p_m2, p_n1, p_m1, arr1, arr2);
             break;
         case 0:
-            Exit();
+            Exit(arr1, arr2);
             break;
         default:
             printf("Invalid function number.\n");
@@ -225,7 +225,37 @@ void Matrix_multiplicate(int *p_n1, int *p_m1, int *p_n2, int *p_m2, int *arr1[N
     }
 }
 
-void Exit()
+void Exit(int *p_n1, int *p_m1, int *p_n2, int *p_m2, int *arr1[N], int *arr2[N])
 {
+    if (*p_n1 > *p_m1)
+    {
+        for (int i = 0; i < *p_n1; i++)
+        {
+            free(arr1[i]);
+        }
+    }
+    else
+    {
+        for (int i = 0; i < *p_m1; i++)
+        {
+            free(arr1[i]);
+        }
+    }
+
+    if (*p_n2 > *p_m2)
+    {
+        for (int i = 0; i < *p_n2; i++)
+        {
+            free(arr2[i]);
+        }
+    }
+    else
+    {
+        for (int i = 0; i < *p_m2; i++)
+        {
+            free(arr2[i]);
+        }
+    }
+
     exit(0);
 }
