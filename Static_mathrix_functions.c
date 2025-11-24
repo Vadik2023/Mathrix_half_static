@@ -1,19 +1,32 @@
 #include "Static_mathrix_header.h"
 
-void Input(int *p_n, int *p_m, int matrix[*p_n][*p_m])
+void Input1(int *p_n1, int *p_m1, int *arr1[N])
 {
-    printf("Please, write matrix elements\n");
+    printf("Please, write first matrix elements\n");
 
-    for (int i = 0; i < *p_n; i++)
+    for (int i = 0; i < *p_n1; i++)
     {
-        for (int j = 0; j < *p_m; j++)
+        for (int j = 0; j < *p_m1; j++)
         {
-            scanf("%d", &matrix[i][j]);
+            scanf("%d", (*arr1[i] + j));
         }
     }
 }
 
-void Menu(int *p_n, int *p_m, int matrix[*p_n][*p_m])
+void Input2(int *p_n2, int *p_m2, int *arr2[N])
+{
+    printf("Please, write second matrix elements\n");
+
+    for (int i = 0; i < *p_n2; i++)
+    {
+        for (int j = 0; j < *p_m2; j++)
+        {
+            scanf("%d", (*arr2[i] + j));
+        }
+    }
+}
+
+void Menu(int *p_n1, int *p_m1, int *p_n2, int *p_m2, int *arr1[N], int *arr2[N])
 {
     char choice = 'y';
     printf("\nWelcome to menu!!\n");
@@ -21,9 +34,15 @@ void Menu(int *p_n, int *p_m, int matrix[*p_n][*p_m])
     {
         printf("What exact function do you want to perform?\n");
         printf("You need just to write a number, then press [ENTER]\n");
-        printf("1 - Input\n");
-        printf("2 - Print\n");
-        printf("3 - Transportation\n");
+        printf("1 - Input first matrix\n");
+        printf("2 - Print first matrix\n");
+        printf("3 - Input second matrix\n");
+        printf("4 - Print second matrix\n");
+        printf("5 - Transportation first matrix\n");
+        printf("6 - Transportation second matrix\n");
+        printf("7 - Add matrix (just show, no modification)\n");
+        printf("8 - Multiplicate first matrix to second (just show, no modification)\n");
+        printf("9 - Multiplicate second matrix to first (just show, no modification)\n");
         printf("0 - Exit\n");
         printf("Function number: ");
 
@@ -45,13 +64,31 @@ void Menu(int *p_n, int *p_m, int matrix[*p_n][*p_m])
         switch (func_num)
         {
         case 1:
-            Input(p_n, p_m, matrix);
+            Input1(p_n1, p_m1, arr1);
             break;
         case 2:
-            Print(p_n, p_m, matrix);
+            Print(p_n1, p_m1, arr1);
             break;
         case 3:
-            Transpose(p_n, p_m, matrix);
+            Input2(p_n2, p_m2, arr2);
+            break;
+        case 4:
+            Print(p_n2, p_m2, arr2);
+            break;
+        case 5:
+            Transpose(p_n1, p_m1, arr1);
+            break;
+        case 6:
+            Transpose(p_n2, p_m2, arr2);
+            break;
+        case 7:
+            Matrix_addition(p_n1, p_m1, p_n2, p_m2, arr1, arr2);
+            break;
+        case 8:
+            Matrix_multiplicate(p_n1, p_m1, p_n2, p_m2, arr2, arr1);
+            break;
+        case 9:
+            Matrix_multiplicate(p_n2, p_m2, p_n1, p_m1, arr1, arr2);
             break;
         case 0:
             Exit();
@@ -90,8 +127,7 @@ void Menu(int *p_n, int *p_m, int matrix[*p_n][*p_m])
     }
 }
 
-
-void Print(int *p_n, int *p_m, int matrix[*p_n][*p_m])
+void Print(int *p_n, int *p_m, int *arr[N])
 {
     printf("Your matrix:\n");
 
@@ -99,34 +135,94 @@ void Print(int *p_n, int *p_m, int matrix[*p_n][*p_m])
     {
         for (int j = 0; j < *p_m; j++)
         {
-            printf("%d ", matrix[i][j]);
+            printf("%d ", *(arr[i] + j));
         }
         printf("\n");
     }
 }
 
-void Transpose(int *p_n, int *p_m, int matrix[*p_n][*p_m])
+void Transpose(int *p_n, int *p_m, int *arr[N])
 {
     int old_n = *p_n;
     int old_m = *p_m;
 
     int tmp[old_m][old_n];
 
-    // переносимо значення
     for (int i = 0; i < old_n; i++)
         for (int j = 0; j < old_m; j++)
-            tmp[j][i] = matrix[i][j];
+            tmp[j][i] = *(arr[i] + j);
 
-    // перезаписуємо назад у A
     for (int i = 0; i < old_m; i++)
         for (int j = 0; j < old_n; j++)
-            matrix[i][j] = tmp[i][j];
+            *(arr[i] + j) = tmp[i][j];
 
-    // оновлюємо розміри
     *p_n = old_m;
     *p_m = old_n;
 
     printf("Matrix has been transported\n");
+}
+
+void Matrix_addition(int *p_n1, int *p_m1, int *p_n2, int *p_m2, int *arr1[N], int *arr2[N])
+{
+    if ((*p_n1 == *p_n2) && (*p_m1 == *p_m2))
+    {
+        printf("If we add first matrix to second, we will have:\n");
+
+        for (int i = 0; i < *p_n1; i++)
+        {
+            for (int j = 0; j < *p_m1; j++)
+            {
+                printf("%d ", *(arr1[i] + j) + *(arr2[i] + j));
+            }
+
+            printf("\n");
+        }
+    }
+    else
+    {
+        printf("It is impossible to summarize it((");
+    }
+}
+
+void Matrix_multiplicate(int *p_n1, int *p_m1, int *p_n2, int *p_m2, int *arr1[N], int *arr2[N])
+{
+    if (*p_m1 == *p_n2)
+    {
+        printf("If we multiplicate first matrix with second, we will have:\n");
+
+        for (int i = 0; i < *p_n1; i++)
+        {
+            for (int j = 0; j < *p_m2; j++)
+            {
+                int tmp1[*p_m1];
+                int tmp2[*p_n2];
+                int sum = 0;
+
+                for (int k = 0; k < *p_m1; k++)
+                {
+                    tmp1[k] = *(arr1[i] + k);
+                }
+
+                for (int k = 0; k < *p_n2; k++)
+                {
+                    tmp2[k] = *(arr2[k] + j);
+                }
+
+                for (int k = 0; k < *p_m1; k++)
+                {
+                    int t = tmp1[k] * tmp2[k];
+                    sum = sum + t;
+                }
+
+                printf("%d ", sum);
+            }
+            printf("\n");
+        }
+    }
+    else
+    {
+        printf("It is impossible to multiplicate it((");
+    }
 }
 
 void Exit()
