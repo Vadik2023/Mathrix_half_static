@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <math.h>
-#define N 100
+#define N 10
 
 void Input1(int *p_n1, int *p_m1, int *arr1[N]);
 void Input2(int *p_n2, int *p_m2, int *arr2[N]);

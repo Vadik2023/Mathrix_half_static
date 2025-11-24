@@ -8,7 +8,7 @@ void Input1(int *p_n1, int *p_m1, int *arr1[N])
     {
         for (int j = 0; j < *p_m1; j++)
         {
-            scanf("%d", (*arr1[i] + j));
+            scanf("%d", arr1[i] + j);
         }
     }
 }
@@ -21,7 +21,7 @@ void Input2(int *p_n2, int *p_m2, int *arr2[N])
     {
         for (int j = 0; j < *p_m2; j++)
         {
-            scanf("%d", (*arr2[i] + j));
+            scanf("%d", arr2[i] + j);
         }
     }
 }
