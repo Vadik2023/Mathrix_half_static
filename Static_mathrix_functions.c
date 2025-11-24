@@ -91,7 +91,7 @@ void Menu(int *p_n1, int *p_m1, int *p_n2, int *p_m2, int *arr1[N], int *arr2[N]
             Matrix_multiplicate(p_n2, p_m2, p_n1, p_m1, arr1, arr2);
             break;
         case 0:
-            Exit(arr1, arr2);
+            Exit(p_n1, p_m1, p_n2, p_m2, arr1, arr2);
             break;
         default:
             printf("Invalid function number.\n");
